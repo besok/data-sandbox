@@ -1,0 +1,10 @@
+name: data-sandbox
+version: 0.1.0.0
+
+executables:
+  data-sandbox:
+    main: main.hs
+    source-dirs: .
+    dependencies:
+    - base
+    - containers
