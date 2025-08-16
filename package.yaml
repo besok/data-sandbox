@@ -4,7 +4,8 @@ version: 0.1.0.0
 executables:
   data-sandbox:
     main: main.hs
-    source-dirs: .
+    source-dirs: src
     dependencies:
     - base
     - containers
+    - Chart

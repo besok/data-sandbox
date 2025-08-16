@@ -1,0 +1,61 @@
+module Students where
+
+data ExamResult = ExamResult
+  { studentId :: String,
+    examScore :: Int
+  }
+  deriving (Show, Eq)
+
+exam :: [ExamResult]
+exam =
+  [ ExamResult "001" 78,
+    ExamResult "002" 92,
+    ExamResult "003" 65,
+    ExamResult "004" 88,
+    ExamResult "005" 74,
+    ExamResult "006" 91,
+    ExamResult "007" 82,
+    ExamResult "008" 69,
+    ExamResult "009" 95,
+    ExamResult "010" 77,
+    ExamResult "011" 83,
+    ExamResult "012" 71,
+    ExamResult "013" 89,
+    ExamResult "014" 76,
+    ExamResult "015" 84,
+    ExamResult "016" 68,
+    ExamResult "017" 93,
+    ExamResult "018" 79,
+    ExamResult "019" 86,
+    ExamResult "020" 72,
+    ExamResult "021" 87,
+    ExamResult "022" 75,
+    ExamResult "023" 94,
+    ExamResult "024" 81,
+    ExamResult "025" 70,
+    ExamResult "026" 85,
+    ExamResult "027" 90,
+    ExamResult "028" 67,
+    ExamResult "029" 96,
+    ExamResult "030" 73,
+    ExamResult "031" 80,
+    ExamResult "032" 66,
+    ExamResult "033" 88,
+    ExamResult "034" 92,
+    ExamResult "035" 74,
+    ExamResult "036" 87,
+    ExamResult "037" 78,
+    ExamResult "038" 83,
+    ExamResult "039" 91,
+    ExamResult "040" 76,
+    ExamResult "041" 89,
+    ExamResult "042" 82,
+    ExamResult "043" 85,
+    ExamResult "044" 77,
+    ExamResult "045" 93,
+    ExamResult "046" 79,
+    ExamResult "047" 86,
+    ExamResult "048" 71,
+    ExamResult "049" 84,
+    ExamResult "050" 88
+  ]
