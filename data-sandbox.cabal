@@ -11,6 +11,7 @@ build-type:     Simple
 executable data-sandbox
   main-is: main.hs
   other-modules:
+      Temp
       Paths_data_sandbox
   hs-source-dirs:
       src
