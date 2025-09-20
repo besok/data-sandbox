@@ -1,16 +1,19 @@
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeSynonymInstances #-}
+
 module Salesman where
 
 import Data.Array
 import GeneticAlgorithm
 import System.Random (StdGen, mkStdGen, randomR)
 
-type City = Int
-
-type Route = [City]
+type CityId = Int
 
 type Distance = Int
 
-distances :: Array (City, City) Distance
+type Route = [CityId]
+
+distances :: Array (CityId, CityId) Distance
 distances =
   array
     ((0, 0), (9, 9))
@@ -100,7 +103,7 @@ distances =
       ((8, 3), 1760),
       ((8, 4), 530),
       ((8, 5), 1140),
-      ((8, 8), 1200),
+      ((8, 6), 1200),
       ((8, 7), 2050),
       ((8, 8), 0),
       ((8, 9), 1430), -- Amsterdam
@@ -129,3 +132,52 @@ cities =
     "Amsterdam", -- 8
     "Stockholm" -- 9
   ]
+
+-- Helper function to swap two elements in a list
+swap :: Int -> Int -> [a] -> [a]
+swap i j xs
+  | i == j = xs
+  | i > j = swap j i xs
+  | otherwise =
+      let x_i = xs !! i
+          x_j = xs !! j
+          (before, rest) = splitAt i xs
+          (middle, after) = splitAt (j - i - 1) (drop (i + 1) rest)
+       in before ++ [x_j] ++ middle ++ [x_i] ++ drop 1 after
+
+instance Genetic Route where
+  initial gen =
+    let (route, gen') = shuffle [0 .. length cities - 1] gen
+     in (route, gen')
+    where
+      shuffle [] g = ([], g)
+      shuffle xs g =
+        let (i, g1) = randomR (0, length xs - 1) g
+            x = xs !! i
+            xs' = take i xs ++ drop (i + 1) xs
+            (rest, g2) = shuffle xs' g1
+         in (x : rest, g2)
+
+  crossover parent1 parent2 gen =
+    let len = length parent1
+        (start, gen1) = randomR (0, len - 1) gen
+        (end, gen2) = randomR (start, len - 1) gen1
+        slice = take (end - start + 1) . drop start $ parent1
+        remaining = filter (`notElem` slice) parent2
+        child = take start remaining ++ slice ++ take (len - end - 1) (drop start remaining)
+     in (child, gen2)
+
+  mutate route gen =
+    let len = length route
+        (i, gen1) = randomR (0, len - 1) gen
+        (j', gen2) = randomR (0, len - 2) gen1
+        -- Ensure j is not equal to i
+        j = if j' < i then j' else j' + 1
+        route' = swap i j route
+     in (route', gen2)
+
+  fitness route =
+    1.0 / fromIntegral (totalDistance route)
+    where
+      totalDistance :: Route -> Distance
+      totalDistance r = sum $ zipWith (curry (distances !)) r (tail r ++ [head r])

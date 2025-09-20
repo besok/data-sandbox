@@ -1,11 +1,22 @@
 name: data-sandbox
 version: 0.1.0.0
 
+library:
+  source-dirs: src/genetic
+  exposed-modules:
+    - GeneticAlgorithm
+    - Salesman
+  dependencies:
+    - base
+    - array
+    - random
+
 executables:
   data-sandbox:
     main: main.hs
     source-dirs: src
     dependencies:
-    - base
-    - containers
-    - Chart
+      - data-sandbox
+      - base
+      - containers # Assuming Chart might be used later, keeping it.
+      - random
