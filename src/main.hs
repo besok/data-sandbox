@@ -16,4 +16,4 @@ main = do
   -- let cityNames = map (cities !!) bestRoute
   -- putStrLn $ "Best route found: " ++ intercalate " -> " cityNames
   -- putStrLn $ "Total distance: " ++ show (round totalDistance :: Int)
-  printPath (astar maze startNode endNode manhattan)
+  printPath $ astar maze startNode endNode manhattan
