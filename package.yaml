@@ -2,14 +2,19 @@ name: data-sandbox
 version: 0.1.0.0
 
 library:
-  source-dirs: src/genetic
+  source-dirs:
+    - src/genetic
+    - src/astar
   exposed-modules:
     - GeneticAlgorithm
     - Salesman
+    - Maze
+    - AStar
   dependencies:
     - base
     - array
     - random
+    - containers
 
 executables:
   data-sandbox:

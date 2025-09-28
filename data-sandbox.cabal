@@ -12,13 +12,17 @@ library
   exposed-modules:
       GeneticAlgorithm
       Salesman
+      Maze
+      AStar
   other-modules:
       Paths_data_sandbox
   hs-source-dirs:
       src/genetic
+      src/astar
   build-depends:
       array
     , base
+    , containers
     , random
   default-language: Haskell2010
 
